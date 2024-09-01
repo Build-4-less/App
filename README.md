@@ -1,7 +1,7 @@
-# KS BootShop - Shopify Theme
+# Build4Less Ecommerce - Shopify Theme
 Free Shopify theme powered by the Bootstrap framework (v5), developed respecting <a rel="nofollow" href="https://shopify.dev/tutorials/review-theme-store-requirements">Shopify theme requirements</a>, accessibility best practices, and of course our own experience developing high-quality themes for more than 15 years. We aim to make this project the most complete, robust, and awesome Shopify Theme for the Bootstrap framework.&nbsp;&nbsp;
 
-## Highlighted features:
+## Highlighted features - Tech Stack:
 * Advanced styling for each section (New)
 * Powered by [Bootstrap framework](https://getbootstrap.com/) (v5)
 * Developed respecting [Shopify themes requirements](https://shopify.dev/tutorials/review-theme-store-requirements)
