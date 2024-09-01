@@ -1,0 +1,315 @@
+{%- if section.blocks.size > 0 -%}
+<div class="shopify-tabs wc-tabs-wrapper tabs-layout-{{settings.product_tab_type}}">
+  <ul class="tabs wc-tabs">
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'description' -%}
+    <li class="description_tab{%- if forloop.first %} active{%- endif -%}">
+      <a href="#tab-description"> 
+        {%- if settings.language_enable -%}
+        <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+        <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+        {%- else -%}
+        {{ block.settings.title | split: '|' | first }}
+        {%- endif -%} 
+      </a>
+    </li>
+    {%- when 'review' -%}
+    {%- if settings.product_review_fullwidth == blank -%}
+    <li class="reviews_tab{%- if forloop.first %} active{%- endif -%}">
+      <a href="#tab-reviews">
+        {%- if settings.language_enable -%}
+        <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+        <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+        {%- else -%}
+        {{ block.settings.title | split: '|' | first }}
+        {%- endif -%} 
+        {%- if block.settings.use_count_reviews -%} 
+        {%- assign reviews_counts = 0 -%}
+        {%- if product.metafields.spr.reviews -%}
+        {%- capture spr_data -%}{{ product.metafields.spr.reviews }}{%- endcapture -%}
+        {%- assign spr1 = spr_data | split: '<meta itemprop="reviewCount" content="' -%}
+        {%- assign spr2 = spr1[1] | split: '\">\n' | first -%} 
+        {%- assign reviews_counts = spr2 | first | plus:0 -%}
+        {%- endif -%}
+        {%- if reviews_counts <= 0 -%}
+        {%- assign spr_counts = "(0)" -%}
+        {%- else -%}
+        {%- capture spr_counts -%}({{reviews_counts}}){%- endcapture -%}   
+        {%- endif -%} 
+        {{spr_counts}}
+        {%- endif -%}
+      </a>
+    </li>
+    {%- endif -%} 
+    {%- when 'additional' -%}
+    {%- if product.description contains '[additional]' -%}
+    <li class="additional_tab{%- if forloop.first %} active{%- endif -%}">
+      <a href="#tab-additional_information">
+        {%- if settings.language_enable -%}
+        <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+        <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+        {%- else -%}
+        {{ block.settings.title | split: '|' | first }}
+        {%- endif -%} 
+      </a>
+    </li>
+    {%- endif -%} 
+    {%- when 'html' -%} 
+    {%- if block.settings.code != '' -%}
+    <li class="html_tab{%- if forloop.first %} active{%- endif -%}">
+      <a href="#{{block.id}}">
+        {%- if settings.language_enable -%}
+        <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+        <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+        {%- else -%}
+        {{ block.settings.title | split: '|' | first }}
+        {%- endif -%} 
+      </a>
+    </li>
+    {%- endif -%} 
+    {%- endcase -%}
+    {%- endfor -%}
+  </ul>
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'description' -%}
+  <div class="woodmart-tab-wrapper">
+    <a href="#tab-description" class="woodmart-accordion-title tab-title-description{%- if forloop.first %} active{%- endif -%}">
+      {%- if settings.language_enable -%}
+      <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+      <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+      {%- else -%}
+      {{ block.settings.title | split: '|' | first }}
+      {%- endif -%} 
+    </a>
+    <div class="shopify-Tabs-panel shopify-Tabs-panel--description entry-content wc-tab" id="tab-description">
+      <div class="wc-tab-inner {% if settings.product_tab_type == 'accordion' %}woodmart-scroll has-scrollbar{% endif %}">
+        {% if settings.product_tab_type == 'accordion' %}
+        <div class="woodmart-scroll-content">
+        {% endif %}
+        {%- assign description = product.description -%}
+        {%- if description contains '[countdown]' -%}
+        {%- assign description = description | split:'[/countdown]' | last -%}  
+        {%- endif -%}
+        {%- if product.description contains '[shortdesc]' -%}
+        {%- assign description = description | split:'[/shortdesc]' | last -%}  
+        {%- endif -%}
+        {%- if product.description contains '[additional]' -%}
+        {%- assign description = description | split:'[/additional]' | last -%}  
+        {%- endif -%} 
+        {% if settings.language_enable %}
+        <div class="lang1">{{ description | split: '[lang2]' | first }}</div>
+        <div class="lang2">{{ description | split: '[lang2]' | last }}</div>
+        {% else %}
+        {{ description | split: '[lang2]' | first }}
+        {% endif %} 
+        {% if settings.product_tab_type == 'accordion' %}
+        </div>
+        <div class="woodmart-scroll-pane">
+          <div class="woodmart-scroll-slider"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {%- when 'review' -%}
+  {%- if settings.product_review_fullwidth == blank -%}
+  <div class="woodmart-tab-wrapper">
+    <a href="#tab-reviews" class="woodmart-accordion-title tab-title-reviews">
+      {%- if settings.language_enable -%}
+      <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+      <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+      {%- else -%}
+      {{ block.settings.title | split: '|' | first }}
+      {%- endif -%}
+    </a>
+    <div class="shopify-Tabs-panel shopify-Tabs-panel--reviews entry-content wc-tab" id="tab-reviews" style="display: none;">
+      <div class="wc-tab-inner {% if settings.product_tab_type == 'accordion' %}woodmart-scroll has-scrollbar{% endif %}">
+        {% if settings.product_tab_type == 'accordion' %}
+        <div class="woodmart-scroll-content">
+        {%endif%}
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        {% if settings.product_tab_type == 'accordion' %}
+        </div>
+        <div class="woodmart-scroll-pane">
+          <div class="woodmart-scroll-slider"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- when 'additional' -%}
+  {%- if product.description contains '[additional]' -%}
+  <div class="woodmart-tab-wrapper">
+    <a href="#tab-additional_information" class="woodmart-accordion-title tab-title-additional_tab">
+      {%- if settings.language_enable -%}
+      <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+      <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+      {%- else -%}
+      {{ block.settings.title | split: '|' | first }}
+      {%- endif -%}
+    </a>
+    <div class="shopify-Tabs-panel shopify-Tabs-panel--additional_tab entry-content wc-tab" id="tab-additional_information" style="display: none;">
+      <div class="wc-tab-inner {% if settings.product_tab_type == 'accordion' %}woodmart-scroll has-scrollbar{% endif %}"> 
+        {% if settings.product_tab_type == 'accordion' %}
+        <div class="woodmart-scroll-content">
+        {%endif%}
+        {%- if product.description contains '[additional]' -%} 
+        {%- assign get = product.description | split:'[/additional]' | first -%}   
+        {%- assign additional = get | split:'[additional]' | last -%} 
+        {%- if settings.language_enable -%}
+        <div class="lang1">{{ additional | split: '[lang2]' | first }}</div>
+        <div class="lang2">{{ additional | split: '[lang2]' | last }}</div>
+        {% else %}
+        {{ additional | split: '[lang2]' | first }}
+        {%- endif -%}  
+        {%- endif -%} 
+        {% if settings.product_tab_type == 'accordion' %}
+        </div>
+        <div class="woodmart-scroll-pane">
+          <div class="woodmart-scroll-slider"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div> 
+  </div>
+  {%- endif -%}
+  {%- when 'html' -%}
+  {%- if block.settings.code != '' -%}
+  <div class="woodmart-tab-wrapper">
+    <a href="#{{block.id}}" class="woodmart-accordion-title tab-title-woodmart_html_tab">
+      {%- if settings.language_enable -%}
+      <span class="lang1">{{ block.settings.title | split: '|' | first }}</span>
+      <span class="lang2">{{ block.settings.title | split: '|' | last }}</span>
+      {%- else -%}
+      {{ block.settings.title | split: '|' | first }}
+      {%- endif -%}
+    </a>
+    <div class="shopify-Tabs-panel shopify-Tabs-panel--woodmart_html_tab entry-content wc-tab" id="{{block.id}}" style="display: none;">
+      <div class="wc-tab-inner {% if settings.product_tab_type == 'accordion' %}woodmart-scroll has-scrollbar{% endif %}"> 
+        {% if settings.product_tab_type == 'accordion' %}
+        <div class="woodmart-scroll-content">
+        {%endif%}
+        {%- if settings.language_enable -%}
+        <div class="lang1">{{ block.settings.code | split: '[lang2]' | first }}</div>
+        <div class="lang2">{{ block.settings.code | split: '[lang2]' | last }}</div>
+        {%- else -%}
+        {{ block.settings.code | split: '[lang2]' | first }}
+        {%- endif -%}
+        {% if settings.product_tab_type == 'accordion' %}
+        </div>
+        <div class="woodmart-scroll-pane">
+          <div class="woodmart-scroll-slider"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endcase -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+<script type="text/javascript">
+  jQuery(function(a) {
+    a("body").on("init", ".wc-tabs-wrapper, .shopify-tabs", function() {
+      a(".sp-tab, .shopify-tabs .panel:not(.panel .panel)").hide();
+      var b = window.location.hash
+      , c = window.location.href
+      , d = a(this).find(".wc-tabs, ul.tabs").first();
+      b.toLowerCase().indexOf("comment-") >= 0 || "#reviews" === b || "#tab-reviews" === b ? d.find("li.reviews_tab a").click() : c.indexOf("comment-page-") > 0 || c.indexOf("cpage=") > 0 ? d.find("li.reviews_tab a").click() : d.find("li:first a").click()
+    }).on("click", ".wc-tabs li a, ul.tabs li a", function(b) {
+      b.preventDefault();
+      var c = a(this)
+      , d = c.closest(".wc-tabs-wrapper, .shopify-tabs")
+      , e = d.find(".wc-tabs, ul.tabs");
+      e.find("li").removeClass("active"),
+        d.find(".wc-tab, .panel:not(.panel .panel)").hide(),
+        c.closest("li").addClass("active"),
+        d.find(c.attr("href")).show()
+    }), void a(".wc-tabs-wrapper, .shopify-tabs").trigger("init");
+  });
+</script>
+{% schema %}
+  {
+    "name": "Product Page Tab",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Addtional tab: using shortcode [additional]content ...[/additional] on the product description."
+      }
+    ], 
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Description"
+          }
+        ]
+      },
+      {
+        "type": "review",
+        "name": "Review",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Reviews"
+          },  
+          {
+          "type": "checkbox",
+          "id": "use_count_reviews",
+          "label": "Show number count Reviews",
+          "default": false
+          }
+        ]
+      },
+      {
+        "type": "additional",
+        "name": "Additional Information",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Additional Information"
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Shipping & Delivery"
+          },
+          {
+            "type": "html",
+            "id": "code",
+            "label": "HTML"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
