@@ -1371,7 +1371,7 @@
           "1515487730633"
         ],
         "settings": {
-          "action_sub_menu": "click",
+          "action_sub_menu": "hover",
           "label_1": "",
           "color_1": "",
           "label_2": "",
