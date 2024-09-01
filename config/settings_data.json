@@ -1478,61 +1478,67 @@
           "1521191871410": {
             "type": "collection",
             "settings": {
-              "collection": "furniture"
+              "collection": "all-products"
             }
           },
           "1521191880804": {
             "type": "collection",
             "settings": {
-              "collection": "cooking"
+              "collection": "apparel-safety-gear"
             }
           },
           "1521191886689": {
             "type": "collection",
             "settings": {
-              "collection": "accessories"
+              "collection": "audio-video"
             }
           },
           "1521191892619": {
             "type": "collection",
             "settings": {
-              "collection": "fashion"
+              "collection": "data-and-communication"
             }
           },
           "1521191912642": {
             "type": "collection",
             "settings": {
-              "collection": "clocks"
+              "collection": "hand-tools"
             }
           },
           "1521191920279": {
             "type": "collection",
             "settings": {
-              "collection": "lighting"
+              "collection": "hardware"
             }
           },
           "1521191929474": {
             "type": "collection",
             "settings": {
-              "collection": "toys"
+              "collection": "lighting-electrical"
             }
           },
           "1521191937178": {
             "type": "collection",
             "settings": {
-              "collection": "hand-made"
+              "collection": "power-tools"
             }
           },
           "1521191947116": {
             "type": "collection",
             "settings": {
-              "collection": "minimalism"
+              "collection": "smart-home"
             }
           },
           "1521191956360": {
             "type": "collection",
             "settings": {
-              "collection": "electronics"
+              "collection": "software"
+            }
+          },
+          "collection_WfA8w8": {
+            "type": "collection",
+            "settings": {
+              "collection": "storage-organization"
             }
           }
         },
@@ -1546,7 +1552,8 @@
           "1521191929474",
           "1521191937178",
           "1521191947116",
-          "1521191956360"
+          "1521191956360",
+          "collection_WfA8w8"
         ],
         "settings": {
           "select_collection": "2"
